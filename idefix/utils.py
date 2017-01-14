@@ -114,13 +114,11 @@ class FixtureManager(object):
 
         return fixture_files
 
-
     def list_fixtures(self, mod, _dir):
         fixture_files_in_dir = []
         for candidate in glob.iglob(glob_escape(_dir) + '/*'):
-            print candidate
             fixture_files_in_dir.append({'name': os.path.basename(candidate), 'path': candidate})
-
+        return fixture_files_in_dir
 
     @cached_property
     def by_apps(self):
@@ -137,10 +135,5 @@ class FixtureManager(object):
                 else:
                     mod = app_config.name
                     if mod not in apps_fixtures.keys():
-                        apps_fixtures[mod] = {'name': app_config.name, 'open': True, 'children': []}
-                    apps_fixtures[mod]['children'].append({'name': mod, 'path': path})
-
-        print "+++++++++++++++++"
-        print apps_fixtures.values()
-        print "+++++++++++++++++"
+                        apps_fixtures[mod] = {'name': app_config.name, 'open': True, 'children': self.list_fixtures(app, path)}
         return apps_fixtures.values()

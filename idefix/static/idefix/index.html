@@ -8,7 +8,7 @@
     <script type="text/x-template" id="browser-node">
     <li>
       <div :class="{folder: isFolder, file: !isFolder}" @click="toggle">
-        <span v-if="isFolder">[{{model.open ? '-' : '+'}}]</span>
+        <!--<span v-if="isFolder">[{{model.open ? '-' : '+'}}]</span>-->
         {{model.name}}
       </div>
       <ul v-show="model.open" v-if="isFolder">
@@ -19,11 +19,14 @@
     </script>
   </head>
   <body>
-      <h1 v-text="treeData"></h1>
 
-    <ul id="idefix-browser">
-      <item class="item" :model="treeData"></item>
-    </ul>
+    <div id="idefix-leftpane">
+      <ul id="idefix-browser">
+        <item class="item" :model="treeData"></item>
+      </ul>
+    </div>
+    <div id="idefix-rightpane">
+    </div>
 
   </body>
   <script src="/js/idefix.js"></script>

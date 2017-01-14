@@ -1,0 +1,45 @@
+@import 'reset.scss';
+
+
+body {
+  font-family: Menlo, Consolas, monospace;
+  color: #444;
+  background: #dec;
+}
+.item {
+  cursor: pointer;
+}
+.folder {
+  font-weight: bold;
+  color: red;
+}
+ul {
+  padding-left: 1em;
+  line-height: 1.5em;
+  list-style-type: dot;
+}
+
+#idefix-leftpane {
+  background: #eee;
+  width: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+#idefix-rightpane {
+  background: #ccc;
+  width: 80%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+#idefix-browser {
+}
+
+

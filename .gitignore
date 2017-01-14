@@ -4,3 +4,4 @@
 *.pyo
 *~
 .ropeproject
+.sass-cache
