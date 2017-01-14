@@ -20,15 +20,35 @@
       </ul>
     </li>
     </script>
+    <script type="text/x-template" id="editor-fixture">
+    <li class="fixture">
+      <span class="f-curly-brace">{</span>
+        <span v-for="(value, key, index) in model.data">
+            <span class="f-index" v-text="index"></span>
+            <span class="f-key" v-text="k"></span>
+            <span class="f-colon">:</span>
+            <span class="f-value" v-text="val"></span>
+            <span class="f-comma">,</span>
+        </span>
+      <span class="f-curly-brace">{</span>
+    </li>
+    </script>
   </head>
   <body>
 
     <div id="idefix-leftpane">
       <ul id="idefix-browser">
-        <item class="item" :model="treeData"></item>
+        <item class="item" :model="state"></item>
       </ul>
     </div>
     <div id="idefix-rightpane">
+      <div id="idefix-editor">
+        <span class="f-square-bracket">[</span>
+          <ul class="fixtures">
+            <fixture class="item" :model="state"></fixture>
+          </ul>
+        <span class="f-square-bracket">]</span>
+      </div>
     </div>
 
   </body>

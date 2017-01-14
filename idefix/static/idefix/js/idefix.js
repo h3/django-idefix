@@ -1,17 +1,28 @@
-var bus = new Vue()
 var host = 'ws://'+ window.location.host +'/ws';
 var socket = new WebSocket(host);
+var modules = ['editor', 'browser'];
+var bus = new Vue();
 
 var idefix = {
-  is_ready: false
+  is_ready: false,
+  browser: new Vue({
+    el: '#idefix-browser',
+    data: {
+      state: {
+        treeData: {}
+      }
+    }
+  }),
+  editor: new Vue({
+    el: '#idefix-editor',
+    data: {
+      state: {
+        openFiles: []
+      }
+    }
+  })
 };
 
-var browser = new Vue({
-  el: '#idefix-browser',
-  data: {
-    treeData: {}
-  }
-});
 
 //;
 
@@ -29,12 +40,8 @@ if(socket){
     var packets = JSON.parse(msg.data);
     for (var i=0; i < packets.length; i++) {
       var packet = packets[i]
-      if (packet.data) {
-          bus.$emit('data', packet.data);
-      }
-      if (packet.message) {
-          bus.$emit('message', packet.messages);
-      }
+      console.log(packet);
+      bus.$emit('data', packet);
     }
   };
 
@@ -61,23 +68,28 @@ else {
 }
 
 bus.$on('data', function(newData){
-  browser.treeData = Object.assign({}, browser.treeData, newData.browser);
+  for (var i=0; i<modules.length;i++) {
+    var module = modules[i];
+    if (newData[module]) {
+      for (var k in newData[module]) {
+        console.log('AAA', module, k, newData[module][k])
+        if (newData[module].hasOwnProperty(k)) {
+           idefix[module].$data.state = Object.assign({}, idefix[module].$data.state, newData[module][k]);
+           console.log('K', k, newData[module][k])
+        }
+      }
+    }
+  }
 });
 
-bus.$on('message', function(data){
-  alert(data.message);
-});
 
-// define the item component
 Vue.component('item', {
   template: '#browser-node',
   props: {
     model: Object
   },
   data: function () {
-    return {
-        model: { open: true }
-    }
+    return { open: true }
   },
   computed: {
     isFolder: function () {
@@ -102,5 +114,20 @@ Vue.component('item', {
         name: 'new stuff'
       })
     }
+  }
+});
+
+
+Vue.component('fixture', {
+  template: '#editor-fixture',
+  props: {
+    model: Object
+  },
+  data: function () {
+    return { open: true }
+  },
+  computed: {
+  },
+  methods: {
   }
 });

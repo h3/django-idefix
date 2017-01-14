@@ -26,8 +26,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
         self.send([{
-            'data': {
-                'browser': {
+            'browser': {
+                'treeData': {
                     'name': 'Fixtures',
                     'open': True,
                     'children': fixtures.by_apps,
@@ -42,14 +42,14 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             if msg.get('action') == 'open':
                 with open(msg.get('path')) as fd:
                     data = json.load(fd)
-                self.send({
-                    'event': {
-                        'file-open': {
+                self.send([{
+                    'editor': {
+                        'openFiles': [{
                             'path': msg.get('path'),
                             'data': data,
-                        }
+                        }]
                     },
-                })
+                }])
 
     def on_close(self):
       print 'connection closed...'
