@@ -21,24 +21,38 @@ fixtures = FixtureManager()
 
 
 class WSHandler(tornado.websocket.WebSocketHandler):
-  def open(self):
-    print 'connection opened...'
-    self.write_message(json.dumps({
-        'data': {
-            'browser': {
-                'name': 'Fixtures',
-                'open': True,
-                'children': fixtures.by_apps,
+    def send(self, msg):
+        self.write_message(json.dumps(msg))
+
+    def open(self):
+        self.send([{
+            'data': {
+                'browser': {
+                    'name': 'Fixtures',
+                    'open': True,
+                    'children': fixtures.by_apps,
+                }
             }
-        }
-    }))
+        }])
 
-  def on_message(self, message):
-    self.write_message("The server says: " + message + " back at you")
-    print 'received:', message
+    def on_message(self, message):
+        print 'received:', message
+        messages = json.loads(message)
+        for msg in messages:
+            if msg.get('action') == 'open':
+                with open(msg.get('path')) as fd:
+                    data = json.load(fd)
+                self.send({
+                    'event': {
+                        'file-open': {
+                            'path': msg.get('path'),
+                            'data': data,
+                        }
+                    },
+                })
 
-  def on_close(self):
-    print 'connection closed...'
+    def on_close(self):
+      print 'connection closed...'
 
 
 enable_pretty_logging()

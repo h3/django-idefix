@@ -13,7 +13,7 @@ var browser = new Vue({
   }
 });
 
-//socket.send(text);
+//;
 
   // event handlers for websocket
 if(socket){
@@ -22,33 +22,50 @@ if(socket){
     console.debug('Websocket connection established.')
     idefix.is_ready = true;
     bus.$emit('ready');
-  }
+  };
 
   socket.onmessage = function(msg){
-    console.debug('RCV > ', msg)
-    var packet = JSON.parse(msg.data);
-    if (packet.data) {
-        bus.$emit('data', packet.data);
+    console.debug('RCV < ', msg);
+    var packets = JSON.parse(msg.data);
+    for (var i=0; i < packets.length; i++) {
+      var packet = packets[i]
+      if (packet.data) {
+          bus.$emit('data', packet.data);
+      }
+      if (packet.message) {
+          bus.$emit('message', packet.messages);
+      }
     }
-    if (packet.message) {
-        bus.$emit('message', packet.messages);
-    }
-  }
+  };
 
-  socket.onclose = function(){
-    console.debug('Websocket connection closed.')
+  socket.onclose = function(a){
+    console.debug('Websocket connection closed.', a)
     bus.$emit('closed');
-  }
+  };
+
+  socket.onerror = function(e){
+    console.error('AA', e)
+  };
+
+  var send = function(msg){
+    console.debug('SND > ', JSON.stringify(msg));
+    socket.send(JSON.stringify(msg));
+  };
 
 }
 else {
+  var send = function(msg){
+    console.error('Could not send message: ', msg);
+  };
   console.error("Socket connection failed.");
 }
 
 bus.$on('data', function(newData){
-    console.log('dataaa', newData.browser);
-    //browser.treeData === Object.assign({}, browser.treeData, newData.browser);
-    browser.treeData = Object.assign({}, browser.treeData, newData.browser);
+  browser.treeData = Object.assign({}, browser.treeData, newData.browser);
+});
+
+bus.$on('message', function(data){
+  alert(data.message);
 });
 
 // define the item component
@@ -59,7 +76,7 @@ Vue.component('item', {
   },
   data: function () {
     return {
-        model: { open: false }
+        model: { open: true }
     }
   },
   computed: {
@@ -69,11 +86,15 @@ Vue.component('item', {
     }
   },
   methods: {
-    toggle: function () {
-      console.log('AAAAA');
+    browse: function () {
       if (this.isFolder) {
-        console.log('BBBBB', !this.model.open);
         this.model.open = !this.model.open;
+      }
+      else {
+        send([{
+            'action': 'open',
+            'path': this.model.path,
+        }])
       }
     },
     addChild: function () {

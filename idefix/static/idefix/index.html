@@ -8,7 +8,7 @@
     <script src="/js/vue.min.js"></script>
     <script type="text/x-template" id="browser-node">
     <li>
-      <div :class="{folder: isFolder, file: !isFolder}" @click="toggle">
+      <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
         <!--<span>[{{model.open ? '-' : '+'}}]</span>-->
         <i :class="{'fa fa-folder-open': model.open, 'fa fa-folder': !model.open}" v-if="isFolder"></i>
         <i class="fa fa-file-code-o" v-if="!isFolder"></i>
