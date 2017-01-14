@@ -4,12 +4,15 @@
   <head>
     <title>Idefix | fixtures management and manipulation</title>
     <link rel="stylesheet" href="/css/idefix.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="/js/vue.min.js"></script>
     <script type="text/x-template" id="browser-node">
     <li>
       <div :class="{folder: isFolder, file: !isFolder}" @click="toggle">
-        <!--<span v-if="isFolder">[{{model.open ? '-' : '+'}}]</span>-->
-        {{model.name}}
+        <!--<span>[{{model.open ? '-' : '+'}}]</span>-->
+        <i :class="{'fa fa-folder-open': model.open, 'fa fa-folder': !model.open}" v-if="isFolder"></i>
+        <i class="fa fa-file-code-o" v-if="!isFolder"></i>
+        <span class="unselectable">{{model.name}}</span>
       </div>
       <ul v-show="model.open" v-if="isFolder">
         <item class="item" v-for="model in model.children" :model="model"></item>
