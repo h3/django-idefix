@@ -5,7 +5,7 @@
     <title>Idefix | fixtures management and manipulation</title>
     <link rel="stylesheet" href="/css/idefix.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="/js/vue.min.js"></script>
+    <script src="/js/vue.js"></script>
 
     <script type="text/x-template" id="leftpane">
       <div id="idefix-leftpane">
@@ -26,14 +26,15 @@
     </script>
 
     <script type="text/x-template" id="browser">
-<!--<h1>{{$root.state.browser.treeData}}</h1>-->
       <ul id="idefix-fixture-browser">
-        <browser-item :node="$root.state.browser.treeData"></browser-item>
+        <li v-for="leaf in $root.state.browser.treeData.children">
+          <browser-item :leaf="leaf"></browser-item>
+        </li>
       </ul>
     </script>
 
-    <script type="text/x-template" id="browser-item">BB
-      <li v-for="leaf in node">AA
+    <script type="text/x-template" id="browser-item">
+      <div>
         <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
           <!--<span>[{{leaf.open ? '-' : '+'}}]</span>-->
           <i :class="{'fa fa-folder-open': leaf.open, 'fa fa-folder': !leaf.open}" v-if="isFolder"></i>
@@ -41,10 +42,10 @@
           <span class="unselectable">{{leaf.name}}</span>
         </div>
         <ul v-show="leaf.open" v-if="isFolder">
-          <browser-item class="item" v-for="leaf in leaf.children" :leaf="leaf"></browser-item>
+          <browser-item class="item" v-for="child in leaf.children" :leaf="child"></browser-item>
           <!--<li class="add" @click="addChild">+</li>-->
         </ul>
-      </li>
+      </div>
     </script>
 
     <script type="text/x-template" id="editor">

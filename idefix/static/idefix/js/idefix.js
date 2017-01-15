@@ -14,7 +14,7 @@ var Topbar = Vue.component('topbar', {
 
 var BrowserItem = Vue.component('browser-item', {
   template: '#browser-item',
-  props: ['node'],
+  props: ['leaf'],
   data: function () {
     return { open: true }
   },
@@ -51,7 +51,7 @@ var Browser = Vue.component('browser', {
     return { open: true }
   },
   props: {
-    node: Object
+    leaf: Object
   },
   computed: {
     isFolder: function () {
