@@ -20,36 +20,58 @@ BASE_PATH = os.path.dirname(__file__)
 fixtures = FixtureManager()
 
 
+class Idefix(object):
+    state = {
+        'editor': {
+            'openFiles': [],
+        },
+        'browser': {
+            'treeData': {}
+        }
+    }
+
+    def action_open(self, msg):
+        with open(msg.get('path')) as fd:
+            data = json.load(fd)
+        return [{
+            'editor': {
+                'openFiles': [{
+                    'path': msg.get('path'),
+                    'data': data,
+                }]
+            },
+        }]
+
+
 class WSHandler(tornado.websocket.WebSocketHandler):
-    def send(self, msg):
-        self.write_message(json.dumps(msg))
+    idefix = Idefix()
+
+    def push_state(self, **kwargs):
+        self.idefix.state.update(kwargs)
+        self.send({'event': 'new-state', 'data': self.idefix.state})
+
+    def send(self, *args):
+        msg = json.dumps(args)
+        print 'SND >', msg
+        self.write_message(msg)
 
     def open(self):
-        self.send([{
-            'browser': {
+        self.push_state(
+            browser={
                 'treeData': {
                     'name': 'Fixtures',
                     'open': True,
                     'children': fixtures.by_apps,
                 }
-            }
-        }])
+        })
 
     def on_message(self, message):
-        print 'received:', message
+        print 'RCV >', message
         messages = json.loads(message)
         for msg in messages:
-            if msg.get('action') == 'open':
-                with open(msg.get('path')) as fd:
-                    data = json.load(fd)
-                self.send([{
-                    'editor': {
-                        'openFiles': [{
-                            'path': msg.get('path'),
-                            'data': data,
-                        }]
-                    },
-                }])
+            action = msg.get('action')
+            if action == 'open' and hasattr(self.idefix, 'action_%s' % action):
+                self.send(getattr(self.idefix, 'action_%s' % action)(msg))
 
     def on_close(self):
       print 'connection closed...'

@@ -6,51 +6,91 @@
     <link rel="stylesheet" href="/css/idefix.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="/js/vue.min.js"></script>
-    <script type="text/x-template" id="browser-node">
-    <li>
-      <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
-        <!--<span>[{{model.open ? '-' : '+'}}]</span>-->
-        <i :class="{'fa fa-folder-open': model.open, 'fa fa-folder': !model.open}" v-if="isFolder"></i>
-        <i class="fa fa-file-code-o" v-if="!isFolder"></i>
-        <span class="unselectable">{{model.name}}</span>
-      </div>
-      <ul v-show="model.open" v-if="isFolder">
-        <item class="item" v-for="model in model.children" :model="model"></item>
-        <!--<li class="add" @click="addChild">+</li>-->
-      </ul>
-    </li>
-    </script>
-    <script type="text/x-template" id="editor-fixture">
-    <li class="fixture">
-      <span class="f-curly-brace">{</span>
-        <span v-for="(value, key, index) in model.data">
-            <span class="f-index" v-text="index"></span>
-            <span class="f-key" v-text="k"></span>
-            <span class="f-colon">:</span>
-            <span class="f-value" v-text="val"></span>
-            <span class="f-comma">,</span>
-        </span>
-      <span class="f-curly-brace">{</span>
-    </li>
-    </script>
-  </head>
-  <body>
 
-    <div id="idefix-leftpane">
-      <ul id="idefix-browser">
-        <item class="item" :model="state"></item>
+    <script type="text/x-template" id="leftpane">
+      <div id="idefix-leftpane">
+        <browser></browser>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="rightpane">
+      <div id="idefix-rightpane">
+        <editor></editor>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="topbar">
+      <div id="idefix-topbar">
+        <div id="idefix-logo">IDEFIX</div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="browser">
+<!--<h1>{{$root.state.browser.treeData}}</h1>-->
+      <ul id="idefix-fixture-browser">
+        <browser-item :node="$root.state.browser.treeData"></browser-item>
       </ul>
-    </div>
-    <div id="idefix-rightpane">
-      <div id="idefix-editor">
+    </script>
+
+    <script type="text/x-template" id="browser-item">BB
+      <li v-for="leaf in node">AA
+        <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
+          <!--<span>[{{leaf.open ? '-' : '+'}}]</span>-->
+          <i :class="{'fa fa-folder-open': leaf.open, 'fa fa-folder': !leaf.open}" v-if="isFolder"></i>
+          <i class="fa fa-file-code-o" v-if="!isFolder"></i>
+          <span class="unselectable">{{leaf.name}}</span>
+        </div>
+        <ul v-show="leaf.open" v-if="isFolder">
+          <browser-item class="item" v-for="leaf in leaf.children" :leaf="leaf"></browser-item>
+          <!--<li class="add" @click="addChild">+</li>-->
+        </ul>
+      </li>
+    </script>
+
+    <script type="text/x-template" id="editor">
+      <div id="idefix-fixture-editor">
+        <tabs></tabs>
+        <buffer-manager></buffer-manager>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="buffer-manager">
+      <div id="idefix-fixture-editor-buffers">
+      </div>
+    </script>
+
+    <script type="text/x-template" id="buffer">
+      <div class="idefix-fixture-editor-buffer">
         <span class="f-square-bracket">[</span>
           <ul class="fixtures">
-            <fixture class="item" :model="state"></fixture>
+            <editor-fixture class="item" :model="state"></editor-fixture>
           </ul>
         <span class="f-square-bracket">]</span>
       </div>
-    </div>
+    </script>
 
+    <script type="text/x-template" id="fixture">
+      <li class="fixture">
+        <span class="f-curly-brace">{</span>
+          <span v-for="(value, key, index) in model.data">
+              <span class="f-index" v-text="index"></span>
+              <span class="f-key" v-text="k"></span>
+              <span class="f-colon">:</span>
+              <span class="f-value" v-text="val"></span>
+              <span class="f-comma">,</span>
+          </span>
+        <span class="f-curly-brace">}</span>
+      </li>
+    </script>
+
+  </head>
+  <body>
+    <section id="idefix">
+      <topbar></topbar>
+      <left-pane></left-pane>
+      <right-pane></right-pane>
+    </section>
   </body>
+  <script src="/js/storage.js"></script>
   <script src="/js/idefix.js"></script>
 </html>

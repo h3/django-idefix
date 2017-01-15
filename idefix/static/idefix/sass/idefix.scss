@@ -1,51 +1,95 @@
 @import 'reset.scss';
+@import 'utils.scss';
 
+$color-primary: #0C4B33;
+
+$font-primary: Palatino, "Palatino Linotype", "Book Antiqua", "Hoefler Text", Georgia, "Lucida Bright", Cambria, Times, "Times New Roman", serif;
+$font-console: Menlo, Consolas, monospace;
+
+$link: #44B78B;
+$link-hover: #51be95;
+$top-bar-height: 56px;
 
 body {
-  font-family: Menlo, Consolas, monospace;
+  font-family: $font-primary;
   color: #444;
-  background: #dec;
-}
-.item {
-  cursor: pointer;
-}
-.folder {
-  font-weight: bold;
-  color: red;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
+  a {
+    text-decoration: none;
+    color: $link;
+    &:hover {
+      color: $link-hover;
+    }
+  }
 }
 
-#idefix-leftpane {
-  background: #eee;
-  width: 20%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow: auto;
+// Main layout
+
+#idefix {
+  #idefix-topbar {
+    background: $color-primary;
+    height: $top-bar-height;
+    color: white;
+    #idefix-logo {
+      color: $link-hover;
+      font-family: $font-console;
+      background: #083825;
+      width: 160px;
+      height: $top-bar-height;
+      font-size: 2em;
+      line-height: 1.6em;
+      text-align: center;
+      text-shadow: 1px 1px 0px #22ffac;
+      font-weight: normal;
+
+    }
+  }
+  #idefix-leftpane {
+    background: #eee;
+    width: 20%;
+    position: fixed;
+    top: $top-bar-height;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+  }
+  #idefix-rightpane {
+    background: #ccc;
+    width: 80%;
+    position: fixed;
+    top: $top-bar-height;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+  }
 }
 
-#idefix-rightpane {
-  background: #ccc;
-  width: 80%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-}
+
+// Components
+
+
+// - browser
+
+// - editor
 
 #idefix-browser {
+  padding: 20px;
+  .item {
+    font-family: $font-console;
+    cursor: pointer;
+  }
+  .folder {
+    font-weight: bold;
+    color: $color-primary;
+  }
+  .file {
+    font-size: 0.9em;
+    letter-spacing: 0.01em;
+  }
+  ul {
+    padding-left: 1em;
+    line-height: 1.5em;
+    list-style-type: none;
+  }
 }
 
-.unselectable {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE10+ */
-  -o-user-select: none;
-  user-select: none;
-}
+
