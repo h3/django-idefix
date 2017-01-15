@@ -27,14 +27,12 @@
 
     <script type="text/x-template" id="browser">
       <ul id="idefix-fixture-browser">
-        <li v-for="leaf in $root.state.browser.treeData.children">
-          <browser-item :leaf="leaf"></browser-item>
-        </li>
+        <browser-item v-for="leaf in $root.state.browser.treeData.children" :leaf="leaf"></browser-item>
       </ul>
     </script>
 
     <script type="text/x-template" id="browser-item">
-      <div>
+      <li>
         <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
           <!--<span>[{{leaf.open ? '-' : '+'}}]</span>-->
           <i :class="{'fa fa-folder-open': leaf.open, 'fa fa-folder': !leaf.open}" v-if="isFolder"></i>
@@ -45,7 +43,7 @@
           <browser-item class="item" v-for="child in leaf.children" :leaf="child"></browser-item>
           <!--<li class="add" @click="addChild">+</li>-->
         </ul>
-      </div>
+      </li>
     </script>
 
     <script type="text/x-template" id="editor">

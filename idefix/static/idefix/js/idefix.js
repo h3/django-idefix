@@ -20,9 +20,8 @@ var BrowserItem = Vue.component('browser-item', {
   },
   computed: {
     isFolder: function () {
-      return true
-      //return this.node.children &&
-      //  this.node.children.length
+      return this.leaf.children &&
+        this.leaf.children.length
     }
   },
   methods: {
@@ -33,7 +32,7 @@ var BrowserItem = Vue.component('browser-item', {
       else {
         send([{
             'action': 'open',
-            'path': this.model.path,
+            'path': this.leaf.path,
         }])
       }
     },

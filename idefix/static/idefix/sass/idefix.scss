@@ -71,10 +71,10 @@ body {
 
 // - editor
 
-#idefix-browser {
+#idefix-fixture-browser {
   padding: 20px;
+  font-family: $font-console;
   .item {
-    font-family: $font-console;
     cursor: pointer;
   }
   .folder {

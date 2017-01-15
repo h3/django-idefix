@@ -96,18 +96,18 @@ body {
   bottom: 0;
   overflow: auto; }
 
-#idefix-browser {
-  padding: 20px; }
-  #idefix-browser .item {
-    font-family: Menlo, Consolas, monospace;
+#idefix-fixture-browser {
+  padding: 20px;
+  font-family: Menlo, Consolas, monospace; }
+  #idefix-fixture-browser .item {
     cursor: pointer; }
-  #idefix-browser .folder {
+  #idefix-fixture-browser .folder {
     font-weight: bold;
     color: #0C4B33; }
-  #idefix-browser .file {
+  #idefix-fixture-browser .file {
     font-size: 0.9em;
     letter-spacing: 0.01em; }
-  #idefix-browser ul {
+  #idefix-fixture-browser ul {
     padding-left: 1em;
     line-height: 1.5em;
     list-style-type: none; }
