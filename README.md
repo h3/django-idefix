@@ -18,7 +18,7 @@ Any contributions are more than welcome :)
 
 ### Planned
 
- - add row: populate fields from model
+ - add row: populate fields from model, use defaults
  - delete row
  - add field: constrain with model fields
  - fields, rows: populate with random data with django-faker
@@ -27,9 +27,11 @@ Any contributions are more than welcome :)
  - close tab
  - save to disk
  - search (fuzzy ?)
+ - date/time picker
 
 ### Ideas
 
+ - crypt password fields
  - diff buffer with original
  - foreign keys: link, modify (ensure valid)
  - highlight invalid fields (ex: broken foreign key)
