@@ -90,6 +90,7 @@
               <span class="f-key" v-text="k"></span>
               <span class="f-colon">:</span>
               <span class="f-value" v-text="v"></span>
+              <input type="text" :value="v" v-show="editing">
               <span class="f-comma">,</span>
             </div>
             <div v-if="k == 'fields'" class="fields key-val">

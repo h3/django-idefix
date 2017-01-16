@@ -173,17 +173,23 @@ body {
   padding: 2px 0 0 1px; }
   #idefix-tabs li {
     float: left;
-    background: gainsboro; }
+    background: gainsboro;
+    border-right: 1px solid #bbb; }
+    #idefix-tabs li:first-child {
+      border-left: 1px solid #bbb; }
     #idefix-tabs li a {
       padding: 10px 8px;
       display: block;
       margin: 0 3px 0 0;
-      color: #444;
+      color: #777;
       font-family: Menlo, Consolas, monospace;
       cursor: pointer; }
     #idefix-tabs li:hover {
       background: #f7fff1; }
     #idefix-tabs li.open {
       background: #fdfdfd; }
+      #idefix-tabs li.open a {
+        font-weight: bold;
+        color: #444; }
 
 /*# sourceMappingURL=idefix.css.map */
