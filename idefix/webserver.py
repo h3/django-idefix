@@ -22,6 +22,10 @@ fixtures = FixtureManager()
 
 class Idefix(object):
     state = {
+        'tabs': {
+            'active': 0,
+            'items': [],
+        },
         'editor': {
             'openFiles': [],
         },
@@ -31,24 +35,41 @@ class Idefix(object):
     }
 
     def action_open(self, msg):
-        with open(msg.get('path')) as fd:
+        path = msg.get('path')
+        with open(path) as fd:
             data = json.load(fd)
-        return [{
-            'editor': {
-                'openFiles': [{
-                    'path': msg.get('path'),
-                    'data': data,
-                }]
-            },
-        }]
+        tab_count = len(self.state.get('tabs').get('items'))
+        tab_list = self.state.get('tabs').get('items')
+        for t in tab_list:
+            t['is_open'] = False
+        tab_list.append({
+            'path': path,
+            'label': os.path.basename(path),
+            'original': data,
+            'buffer': data,  # TODO: optimize
+            'is_changed': False,
+            'is_open': True,
+        })
+        return {
+            'tabs': {
+                'active': tab_count + 1,
+                'items': tab_list,
+            }
+        }
 
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     idefix = Idefix()
 
     def push_state(self, **kwargs):
+        full = False
+        if kwargs.get('full'):
+            full = kwargs.pop('full')
         self.idefix.state.update(kwargs)
-        self.send({'event': 'new-state', 'data': self.idefix.state})
+        self.send({
+            'event': 'new-state',
+            'data': self.idefix.state if full else kwargs,
+        })
 
     def send(self, *args):
         msg = json.dumps(args)
@@ -63,7 +84,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                     'open': True,
                     'children': fixtures.by_apps,
                 }
-        })
+        }, full=True)
 
     def on_message(self, message):
         print 'RCV >', message
@@ -71,7 +92,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         for msg in messages:
             action = msg.get('action')
             if action == 'open' and hasattr(self.idefix, 'action_%s' % action):
-                self.send(getattr(self.idefix, 'action_%s' % action)(msg))
+                newstate = getattr(self.idefix, 'action_%s' % action)(msg)
+                self.push_state(**newstate)
 
     def on_close(self):
       print 'connection closed...'

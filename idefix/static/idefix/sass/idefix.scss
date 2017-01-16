@@ -1,5 +1,6 @@
 @import 'reset.scss';
 @import 'utils.scss';
+@import 'editor.scss';
 
 $color-primary: #0C4B33;
 
@@ -53,7 +54,7 @@ body {
     overflow: auto;
   }
   #idefix-rightpane {
-    background: #ccc;
+    background: #fdfdfd;
     width: 80%;
     position: fixed;
     top: $top-bar-height;
@@ -92,4 +93,19 @@ body {
   }
 }
 
+// - tabs
 
+#idefix-tabs {
+  background: #def;
+  li {
+    float: left;
+    a {
+      padding: 10px 8px;
+      background: gainsboro;
+      display: block;
+      margin: 0 3px 0 0;
+      color: #444;
+      font-family: $font-console;
+    }
+  }
+}

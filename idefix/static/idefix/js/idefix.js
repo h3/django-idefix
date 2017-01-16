@@ -27,7 +27,7 @@ var BrowserItem = Vue.component('browser-item', {
   methods: {
     browse: function () {
       if (this.isFolder) {
-        this.model.open = !this.model.open;
+        this.leaf.open = !this.leaf.open;
       }
       else {
         send([{
@@ -37,7 +37,7 @@ var BrowserItem = Vue.component('browser-item', {
       }
     },
     addChild: function () {
-      this.model.children.push({
+      this.leaf.children.push({
         name: 'new stuff'
       })
     }
@@ -46,40 +46,6 @@ var BrowserItem = Vue.component('browser-item', {
 
 var Browser = Vue.component('browser', {
   template: '#browser',
-  data: function () {
-    return { open: true }
-  },
-  props: {
-    leaf: Object
-  },
-  computed: {
-    isFolder: function () {
-        return true;
-      return this.$root.state.browser.treeData.children &&
-        this.$root.state.browser.treeData.children.length
-    }
-  },
-  methods: {
-    browse: function () {
-      if (this.isFolder) {
-        this.model.open = !this.model.open;
-      }
-      else {
-        send([{
-            'action': 'open',
-            'path': this.model.path,
-        }])
-      }
-    },
-    addChild: function () {
-      this.model.children.push({
-        name: 'new stuff'
-      })
-    }
-  },
-  //data: function () {
-  //  return {state: Storage.state}
-  //},
   components: {
     'browser-item': BrowserItem
   }
@@ -91,27 +57,80 @@ var Leftpane = Vue.component('left-pane', {
 })
 
 var Rightpane = Vue.component('right-pane', {
-  template: '#rightpane',
-  template: '<div id="idefix-rightpane"></div>'
+  template: '#rightpane'
+})
+
+var TabItem = Vue.component('tab-item', {
+  template: '#tab-item',
+  props: ['item'],
+  methods: {
+    focus: function (item) {
+      console.log('AAzzzzzzzzzz', this.$root.$data.state.tabs.items)
+      //this.$root.$data.state.tabs
+      for (var k in this.$root.$data.state.tabs.items) {
+        var itm = this.$root.$data.state.tabs.items[k];
+        if (this.$root.$data.state.tabs.items[k].path == item.path) {
+          this.$root.$data.state.tabs.items[k].is_open = true;
+        }
+        else {
+          this.$root.$data.state.tabs.items[k].is_open = false;
+        }
+      }
+      send([{
+        'action': 'push-state',
+        'path': this.$root.$data.state.tabs,
+      }])
+    }
+  }
+})
+
+var Tabs = Vue.component('tabs', {
+  template: '#tabs',
+  computed: {
+    items: {
+      get: function() {
+          return this.$root.$data.state.tabs ? this.$root.$data.state.tabs.items : null
+      },
+      set: function() {
+          this.items = this.$root.$data.state.tabs.items
+      }
+    }
+  },
+  components: {
+    'tab-item': TabItem
+  }
 })
 
 var Editor = Vue.component('editor', {
-  template: '#editor'
+  template: '#editor',
+  props: ['state']
 })
 
 var Buffer = Vue.component('buffer', {
-  template: '#buffer'
+  template: '#buffer',
+  props: ['item']
 })
 
 var BufferManager = Vue.component('buffer-manager', {
   template: '#buffer-manager',
+  computed: {
+    items: {
+      get: function() {
+          return this.$root.$data.state.tabs ? this.$root.$data.state.tabs.items : null
+      },
+      set: function() {
+          this.items = this.$root.$data.state.tabs.items
+      }
+    }
+  },
   components: {
     'buffer': Buffer
   }
 })
 
 var Fixture = Vue.component('fixture', {
-  template: '#fixture'
+  template: '#fixture',
+  props: ['k', 'v', 'data']
 })
 
 var components = {
@@ -124,6 +143,7 @@ var components = {
   buffer: Fixture,
   bufferManager: Fixture,
   fixture: Fixture,
+  tabs: Tabs,
 }
 
 var App = new Vue({
@@ -138,7 +158,8 @@ var App = new Vue({
       Storage.update(data)
       Vue.nextTick(function () {
         App.$data.state = Object.assign({}, App.$data.state, data)
-        App.$set(App.$data.state, data)
+        //App.$set(App.$data.state, data)
+        console.log('AAA', App.$data.state)
       })
       //for (var k in data) {
       //  if (data.hasOwnProperty(k)) {

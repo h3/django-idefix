@@ -55,6 +55,23 @@ table {
   -o-user-select: none;
   user-select: none; }
 
+.clear {
+  clear: both;
+  float: none !important; }
+
+#idefix-fixture-editor-buffers .idefix-fixture-editor-buffer {
+  padding: 20px; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .f-square-bracket {
+    color: red;
+    display: block; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row {
+    border: 1px solid #eee;
+    margin-left: 20px; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-curly-brace {
+      display: block; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-key {
+      margin-left: 20px; }
+
 body {
   font-family: Palatino, "Palatino Linotype", "Book Antiqua", "Hoefler Text", Georgia, "Lucida Bright", Cambria, Times, "Times New Roman", serif;
   color: #444; }
@@ -88,7 +105,7 @@ body {
   bottom: 0;
   overflow: auto; }
 #idefix #idefix-rightpane {
-  background: #ccc;
+  background: #fdfdfd;
   width: 80%;
   position: fixed;
   top: 56px;
@@ -111,5 +128,17 @@ body {
     padding-left: 1em;
     line-height: 1.5em;
     list-style-type: none; }
+
+#idefix-tabs {
+  background: #def; }
+  #idefix-tabs li {
+    float: left; }
+    #idefix-tabs li a {
+      padding: 10px 8px;
+      background: gainsboro;
+      display: block;
+      margin: 0 3px 0 0;
+      color: #444;
+      font-family: Menlo, Consolas, monospace; }
 
 /*# sourceMappingURL=idefix.css.map */

@@ -1,0 +1,29 @@
+#idefix-fixture-editor-buffers {
+  .idefix-fixture-editor-buffer {
+    padding: 20px;
+    .f-square-bracket {
+        color: red;
+        display: block;
+    }
+    .fixtures {
+      .row {
+        border: 1px solid #eee;
+        margin-left: 20px;
+        .f-curly-brace {
+          display: block;
+        }
+        .f-key {
+          margin-left: 20px;
+        }
+        .f-colon {}
+        .f-value {}
+        .f-comma {}
+      }
+    }
+  }
+}
+
+
+
+
+

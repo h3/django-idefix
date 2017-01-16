@@ -15,7 +15,7 @@
 
     <script type="text/x-template" id="rightpane">
       <div id="idefix-rightpane">
-        <editor></editor>
+        <editor :state="$root.state.tabs"></editor>
       </div>
     </script>
 
@@ -34,7 +34,6 @@
     <script type="text/x-template" id="browser-item">
       <li>
         <div :class="{folder: isFolder, file: !isFolder}" @click="browse">
-          <!--<span>[{{leaf.open ? '-' : '+'}}]</span>-->
           <i :class="{'fa fa-folder-open': leaf.open, 'fa fa-folder': !leaf.open}" v-if="isFolder"></i>
           <i class="fa fa-file-code-o" v-if="!isFolder"></i>
           <span class="unselectable">{{leaf.name}}</span>
@@ -46,6 +45,17 @@
       </li>
     </script>
 
+    <script type="text/x-template" id="tabs">
+      <ul id="idefix-tabs">
+        <tab-item v-for="item in items" :item="item"></tab-item>
+        <li class="clear"></li>
+      </ul>
+    </script>
+
+    <script type="text/x-template" id="tab-item">
+      <li><a @click="focus(item)">{{item.label}}</a></li>
+    </script>
+
     <script type="text/x-template" id="editor">
       <div id="idefix-fixture-editor">
         <tabs></tabs>
@@ -55,27 +65,27 @@
 
     <script type="text/x-template" id="buffer-manager">
       <div id="idefix-fixture-editor-buffers">
+        <buffer v-for="item in items" :item="item"></buffer>
       </div>
     </script>
 
     <script type="text/x-template" id="buffer">
-      <div class="idefix-fixture-editor-buffer">
+      <div class="idefix-fixture-editor-buffer" v-if="item.is_open">
         <span class="f-square-bracket">[</span>
           <ul class="fixtures">
-            <editor-fixture class="item" :model="state"></editor-fixture>
+            <fixture v-for="data in item.buffer" :data="data"></fixture>
           </ul>
         <span class="f-square-bracket">]</span>
       </div>
     </script>
 
     <script type="text/x-template" id="fixture">
-      <li class="fixture">
+      <li class="row">
         <span class="f-curly-brace">{</span>
-          <span v-for="(value, key, index) in model.data">
-              <span class="f-index" v-text="index"></span>
+          <span v-for="(v, k) in data">
               <span class="f-key" v-text="k"></span>
               <span class="f-colon">:</span>
-              <span class="f-value" v-text="val"></span>
+              <span class="f-value" v-text="v"></span>
               <span class="f-comma">,</span>
           </span>
         <span class="f-curly-brace">}</span>

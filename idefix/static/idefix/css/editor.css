@@ -1,0 +1,14 @@
+#idefix-fixture-editor-buffers .idefix-fixture-editor-buffer {
+  padding: 20px; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .f-square-bracket {
+    color: red;
+    display: block; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row {
+    border: 1px solid #eee;
+    margin-left: 20px; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-curly-brace {
+      display: block; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-key {
+      margin-left: 20px; }
+
+/*# sourceMappingURL=editor.css.map */
