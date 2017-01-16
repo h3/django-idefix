@@ -1,5 +1,7 @@
 # Idefix
 
+![UI demo](http://i.imgur.com/LAWpi2p.png "First semi-working draft of the UI")
+
 ## Introduction
 
 Idefix is a django development tool that provides a web interface to edit project fixtures.
@@ -26,7 +28,6 @@ Any contributions are more than welcome :)
  - save to disk
  - search (fuzzy ?)
 
-
 ### Ideas
 
  - diff buffer with original
@@ -36,6 +37,21 @@ Any contributions are more than welcome :)
  - drag reorder rows
  - realtime colab
  - offer option to show/hide missing fields (compated to models)
+ - create fixture from existing database object
+ - dump model fixtures to file (with custom query)
+
+## Installation
+
+```sh
+(venv)$ pip install https://gitlab.com/h3/django-idefix.git
+```
+
+## Usage
+
+```sh
+(venv)$ python manage.py runidefix
+Starting idefix webserver on http://127.0.0.1:8100
+```
 
 ## Stack
 
