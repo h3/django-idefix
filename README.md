@@ -1,10 +1,10 @@
 # Idefix
 
+Idefix is a django development tool that provides a web interface to edit project fixtures.
+
 ![UI demo](http://i.imgur.com/LAWpi2p.png "First semi-working draft of the UI")
 
-## Introduction
-
-Idefix is a django development tool that provides a web interface to edit project fixtures.
+## Why ?
 
 Editing fixture is always a PITA, Idefix tries to make it a little more fun.
 
