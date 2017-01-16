@@ -1,14 +1,48 @@
+#idefix-fixture-editor-buffers .f-add {
+  opacity: 0.3;
+  color: #999;
+  cursor: pointer; }
+  #idefix-fixture-editor-buffers .f-add:hover {
+    color: #51be95;
+    opacity: 1; }
+  #idefix-fixture-editor-buffers .f-add.field {
+    position: absolute;
+    margin-left: 20px; }
+  #idefix-fixture-editor-buffers .f-add.fixture {
+    position: absolute;
+    margin-left: 20px; }
+    #idefix-fixture-editor-buffers .f-add.fixture.top {
+      margin-top: -16px; }
 #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer {
+  font-family: Menlo, Consolas, monospace;
   padding: 20px; }
   #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .f-square-bracket {
-    color: red;
+    color: #999;
     display: block; }
-  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row {
-    border: 1px solid #eee;
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row:hover {
+    background: #f7fff1;
+    border-radius: 5px; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row ul {
     margin-left: 20px; }
-    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-curly-brace {
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row ul li:last-child .f-comma {
+      display: none; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val {
+    margin-left: 20px;
+    padding: 4px 0; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val .f-curly-brace {
+      color: #666;
       display: block; }
-    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .f-key {
-      margin-left: 20px; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val .f-key {
+      color: #0C4B33;
+      font-weight: bold; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val .f-value {
+      padding: 2px 4px; }
+      #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val .f-value:hover {
+        background: #fff8dc;
+        cursor: pointer; }
+    #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row .key-val .fields .f-curly-brace {
+      display: inline-block; }
+  #idefix-fixture-editor-buffers .idefix-fixture-editor-buffer .fixtures .row:last-child .f-comma {
+    display: none; }
 
 /*# sourceMappingURL=editor.css.map */

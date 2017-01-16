@@ -53,7 +53,7 @@
     </script>
 
     <script type="text/x-template" id="tab-item">
-      <li><a @click="focus(item)">{{item.label}}</a></li>
+      <li :class="{open: item.is_open}"><a @click="focus(item)">{{item.label}}</a></li>
     </script>
 
     <script type="text/x-template" id="editor">
@@ -72,9 +72,11 @@
     <script type="text/x-template" id="buffer">
       <div class="idefix-fixture-editor-buffer" v-if="item.is_open">
         <span class="f-square-bracket">[</span>
+          <add-fixture class="top"></add-fixture>
           <ul class="fixtures">
             <fixture v-for="data in item.buffer" :data="data"></fixture>
           </ul>
+          <add-fixture class="bottom"></add-fixture>
         <span class="f-square-bracket">]</span>
       </div>
     </script>
@@ -82,13 +84,35 @@
     <script type="text/x-template" id="fixture">
       <li class="row">
         <span class="f-curly-brace">{</span>
-          <span v-for="(v, k) in data">
+        <span v-for="(v, k) in data">
+
+            <div v-if="k != 'fields'" class="key-val">
               <span class="f-key" v-text="k"></span>
               <span class="f-colon">:</span>
               <span class="f-value" v-text="v"></span>
               <span class="f-comma">,</span>
-          </span>
+            </div>
+            <div v-if="k == 'fields'" class="fields key-val">
+              <span class="f-key" v-text="k"></span>
+              <span class="f-colon">:</span>
+              <span class="f-curly-brace" style="display:inline">{</span>
+              <ul class="f-fields">
+                <li v-for="(v2, k2) in v" class="key-val">
+                  <span class="f-key" v-text="k2"></span>
+                  <span class="f-colon">:</span>
+                  <span class="f-value" v-text="v2"></span>
+                  <span class="f-comma">,</span>
+                </li>
+                <li>
+                  <add-field></add-field>
+                </li>
+              </ul>
+              <span class="f-curly-brace" style="margin-left:20px;" v-if="k == 'fields'">}</span>
+            </div>
+
+        </span>
         <span class="f-curly-brace">}</span>
+        <span class="f-comma">,</span>
       </li>
     </script>
 

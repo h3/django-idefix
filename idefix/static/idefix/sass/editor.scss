@@ -1,23 +1,80 @@
+@import 'variables.scss';
+
 #idefix-fixture-editor-buffers {
+  .f-add {
+    opacity: 0.3;
+    color: #999;
+    cursor: pointer;
+    &:hover {
+      color: $link-hover;
+      opacity: 1;
+    }
+    &.field {
+      position: absolute;
+      margin-left: 20px;
+    }
+    &.fixture {
+      position: absolute;
+      margin-left: 20px;
+      &.top {
+          margin-top: -16px;
+      }
+    }
+  }
   .idefix-fixture-editor-buffer {
+    font-family: $font-console;
     padding: 20px;
     .f-square-bracket {
-        color: red;
+        color: #999;
         display: block;
     }
     .fixtures {
       .row {
-        border: 1px solid #eee;
-        margin-left: 20px;
-        .f-curly-brace {
-          display: block;
+        &:hover {
+          background: #f7fff1;
+          border-radius: 5px;
         }
-        .f-key {
+        ul {
           margin-left: 20px;
+          li:last-child {
+            .f-comma {
+              display: none ;
+            }
+          }
         }
-        .f-colon {}
-        .f-value {}
-        .f-comma {}
+        .key-val {
+          margin-left: 20px;
+          padding: 4px 0;
+          .f-curly-brace {
+            color: #666;
+            display: block;
+          }
+          .f-key {
+            color: $color-primary;
+            font-weight: bold;
+          }
+          .f-colon {
+          }
+          .f-value {
+            padding: 2px 4px;
+            &:hover {
+              background: #fff8dc;
+              cursor: pointer;
+            }
+          }
+          .f-comma {
+          }
+          .fields {
+            .f-curly-brace {
+              display: inline-block;
+            }
+          }
+        }
+        &:last-child {
+          .f-comma {
+            display: none ;
+          }
+        }
       }
     }
   }
