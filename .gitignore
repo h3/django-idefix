@@ -2,6 +2,7 @@
 *.tmp
 *.pyc
 *.pyo
+*.map
 *~
 .ropeproject
 .sass-cache
