@@ -23,17 +23,7 @@ var App = new Vue({
       Storage.update(data)
       Vue.nextTick(function () {
         App.$data.state = Object.assign({}, App.$data.state, data)
-        //App.$set(App.$data.state, data)
-        console.log('AAA', App.$data.state)
       })
-      //for (var k in data) {
-      //  if (data.hasOwnProperty(k)) {
-      //    console.debug('EMIT', k, 'data', data[k]);
-      //    this.$emit(k +'-data', data[k]);
-      //    console.log('AAA', components[k].$on)
-      //    //components[k].$emit('data', data[k]);
-      //  }
-      //}
     },
     dispatch: function (e) {
       if (e.event) {
