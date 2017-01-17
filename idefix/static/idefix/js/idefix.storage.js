@@ -1,8 +1,5 @@
-var truth = {
-  browser: { treeData: {}}
-}
-var lstore_key = 'idefix'
-var lstore = localStorage.getItem(lstore_key)
+var truth = { browser: { treeData: {} } }
+var lstore = localStorage.getItem(STORAGE_KEY)
 
 var Storage = {
   debug: true,
@@ -17,8 +14,7 @@ var Storage = {
     this.state = Object.assign({}, this.state, newData)
   },
   save: function() {
-    localStorage.setItem(lstore_key, JSON.stringify(Storage.state))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(Storage.state))
   }
 }
-
 Storage.init()

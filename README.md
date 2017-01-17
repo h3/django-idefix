@@ -28,6 +28,8 @@ Any contributions are more than welcome :)
  - save to disk
  - search (fuzzy ?)
  - date/time picker
+ - use npm/bower
+ - [refactor to single-file-components](https://vuejs.org/v2/guide/single-file-components.html)
 
 ### Ideas
 
