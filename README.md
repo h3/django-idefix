@@ -43,6 +43,7 @@ Any contributions are more than welcome :)
  - offer option to show/hide missing fields (compated to models)
  - create fixture from existing database object
  - dump model fixtures to file (with custom query)
+ - table list view
 
 ## Installation
 
