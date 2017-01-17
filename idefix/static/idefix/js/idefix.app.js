@@ -1,3 +1,16 @@
+var components = {
+  topbar: Topbar,
+  leftpane: Leftpane,
+  rightpane: Rightpane,
+  browser: Browser,
+  editor: Fixture,
+  buffer: Fixture,
+  bufferManager: Fixture,
+  fixture: Fixture,
+  tabs: Tabs,
+}
+
+
 var App = new Vue({
   data: {
     state: Storage.state

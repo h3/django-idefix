@@ -27,7 +27,7 @@ var BufferManager = Vue.component('buffer-manager', {
 
 var Fixture = Vue.component('fixture', {
   template: '#fixture',
-  props: ['k', 'v', 'data', 'fields']
+  props: ['data', 'editing']
 })
 
 var ButtonAddFixture = Vue.component('add-fixture', {
@@ -37,16 +37,3 @@ var ButtonAddFixture = Vue.component('add-fixture', {
 var ButtonAddField = Vue.component('add-field', {
   template: '<span class="f-add field"><i class="fa fa-plus-square" aria-hidden="true"></i></span>',
 })
-
-var components = {
-  topbar: Topbar,
-  leftpane: Leftpane,
-  rightpane: Rightpane,
-  browser: Browser,
-  //browserItem: BrowserItem,
-  editor: Fixture,
-  buffer: Fixture,
-  bufferManager: Fixture,
-  fixture: Fixture,
-  tabs: Tabs,
-}
