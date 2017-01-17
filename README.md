@@ -18,7 +18,7 @@ Any contributions are more than welcome :)
 
 ### Planned
 
- - add row: populate fields from model, use defaults
+ - add row: populate fields from model, use defaults, accept and parse raw copy paste input
  - delete row
  - add field: constrain with model fields
  - fields, rows: populate with random data with django-faker
