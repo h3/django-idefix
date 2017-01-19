@@ -63,3 +63,8 @@ Starting idefix webserver on http://127.0.0.1:8100
  - UI: Vue.js / HTML / SASS
  - Backend: tornado
  - Fonts: Fontawesome
+
+
+Considered for UI stack:
+
+ - https://josephuspaye.github.io/Keen-UI/
