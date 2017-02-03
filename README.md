@@ -58,6 +58,11 @@ Any contributions are more than welcome :)
 Starting idefix webserver on http://127.0.0.1:8100
 ```
 
+```sh
+sensible-browser http://127.0.0.1:8100/index.html
+```
+
+
 ## Stack
 
  - UI: Vue.js / HTML / SASS
